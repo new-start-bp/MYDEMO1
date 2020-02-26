@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 
+    模板引擎arttemplate的使用步骤
+      1 先引入文件
+      2 准备模板（主要内容）
+      3 准备数据
+      4 调用模板方法，将数据传入
+        模板引擎会自动将数据和模板结合，生成我们需要的结构字符串
+  -->
+  <script src="template-web.js"></script>
+
+  <!-- 
+    模板采用script标签
+      1 必须将type修改为非js的形式,推荐使用 text/template
+      2 必须设置id
+      3 在模板内容需要使用模板的语法进行模板内容设置
+        标记： {{}}
+        注意：只有模板标记内部才会进行模板语法执行，标记外部原样输出
+
+        {{$data}}   - $data代表template()传入的参数2，数据对象
+        {{$data.name}} - $data可以正常的进行属性访问
+        {{$data.age}}
+        {{name}}    - 如果要访问$data的属性，可以不写$data
+        {{age}}
+        {{@str}}    - 如果要填充的内容是结构字符串，并且希望进行结构生成，在内容前书写@
+
+  -->
+  <script type="text/template" id="myTemplate">
+    <p>{{name}}</p>
+    <p>{{age}}</p>
+    <p>{{@str}}</p>
+
+
+    {{if age>=18}}
+    <p>去网吧打游戏</p>
+    {{/if}}
+
+    {{if age>=18}}
+    <p>去网吧打游戏</p>
+    {{else}}
+    <p>去看动画片</p>
+    {{/if}}
+
+    {{if score>=90}}
+    <p>本次考试优秀</p>
+    {{else if score>=60}}
+    <p>及格</p>
+    {{else}}
+    <p>不及格</p>
+    {{/if}}
+
+
+
+
+    <div>
+      <p>
+        <ul>
+          {{each arr}}
+          <li>当前li的索引为：{{$index}} 当前li的内容：{{$value}}</li>
+          {{/each}}
+        </ul>
+
+        <ul>
+          {{each arr v i}}
+          <li>当前li的索引为：{{i}} 当前li的内容：{{v}}</li>
+          {{/each}}
+        </ul>
+
+        <ul>
+          {{each obj}}
+            <li>属性名为：{{$index}}  属性值为:{{$value}}</li>
+          {{/each}}
+        </ul>
+
+        
+        <ul>
+          {{each obj value key}}
+            <li>属性名为：{{key}}  属性值为:{{value}}</li>
+          {{/each}}
+        </ul>
+      </p>
+    </div>
+  </script>
+  <script>
+    var dataObj = {
+      name: 'jack',
+      age: 19,
+      score: 90,
+      str: '<span>这是span标签的内容</span>',
+      arr: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+      obj: {
+        a: 10,
+        b: 20,
+        c: 30
+      }
+    };
+
+    // 调用模板方法，得到结构字符串
+    // template() 是 art-template提供的全局函数，用于进行模板操作
+    //   - 参数1：模板id  参数2:数据对象
+    //   - 返回值：将数据和结构结合后得到的结构字符串
+    var htmlStr = template('myTemplate', dataObj);
+    // console.log(htmlStr);
+
+    document.body.innerHTML = htmlStr;
+
+
+  </script>
+</body>
+
+</html>

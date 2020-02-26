@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="template-web.js"></script>
+    <script type="text/template" id="myTemplate">
+        <p>用户名为：{{name}}</p>
+        <p>用户的评论内容为： {{content}}</p>
+        <p>用户的评论时间为： {{time|dateFormat}}</p>
+        <p>用户的注册时间为： {{time2|dateFormat}}</p>
+    </script>
+    <script>
+var dataObj = {
+      name: 'jack',
+      content: '今天天气不错，和rose出来跳会儿舞~',
+      time: 1572127269710,
+      time2: 1542222269710
+    };
+//
+function dateFormat(time) {
+      var date = new Date(time);
+      return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
+    //==========================
+    var htmlStr = template('myTemplate', dataObj);
+    // console.log(htmlStr);
+
+    document.body.innerHTML = htmlStr;
+    </script>
+</body>
+</html>

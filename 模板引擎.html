@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="template-web.js"></script>
+    <script type="text/template" id="myTemplate">
+<div>
+ <p>{{$data}}</p>   <!--显示的是obj里的内容  -->
+<p>{{$data.name}}</p>
+<p>{{name}}</p><!--简写成这样  -->
+<p>{{@str}}</p>
+<!-- 如果33行的obj里面的某个属性，里面是一个结构形式，要加@ -->
+    <p>
+        <ul>
+            <li>111</li>
+            <li>ghfgd</li>
+            <li>ghfgd</li>
+            <li>ghfgd</li>
+            <li>ghfgd</li>
+        </ul>
+    </p>
+    <span>这是一个span标签</span>
+</div>
+    </script>
+    <script>
+var obj={
+    name:'zs'
+    ,age:22,
+    str:'<span>这是一个span标签</span>',
+}
+
+// 调用模板方法，得到结构字符串
+    // template() 是 art-template提供的全局函数，用于进行模板操作
+    //   - 参数1：模板id,上面  <script type="text/template" id="myTemplate">的id  参数2:数据对象
+    //   - 返回值：将数据和结构结合后得到的结构字符串
+    var htmlStr = template('myTemplate', obj);
+    // console.log(htmlStr);
+
+    document.body.innerHTML = htmlStr;
+    </script>
+</body>
+</html>
